@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'register.dart';
 
 void main() => runApp( 
   MaterialApp( 
     debugShowCheckedModeBanner: false,
-    home: MyApp(),
+    home: loginpage(),
   )
 );
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class loginpage extends StatelessWidget {
+  const loginpage({super.key});
   @override 
   Widget build(BuildContext context) { 
     return Scaffold( 
@@ -88,12 +89,25 @@ class MyApp extends StatelessWidget {
                               )
                             ),
                             
+                            
                           ]
                           
                         ),
                         
                       ),
-                      SizedBox(height: 50,),
+                      SizedBox(height: 30,),
+                      GestureDetector( 
+                        onTap: () {
+                          Navigator.push( 
+                            context, 
+                            MaterialPageRoute(builder: (context) => registerpage()),
+                            );
+                        },
+                        child: Center( 
+                          child: Text("Click here to register", style: TextStyle(color: Colors.grey, fontSize: 12), ),
+                        )
+                      ),
+                      SizedBox(height: 30,),
                       GestureDetector(
                         //onTap: ( 
                           
