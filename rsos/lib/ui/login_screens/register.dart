@@ -40,7 +40,7 @@ class registerpage extends StatelessWidget {
                         decoration: BoxDecoration( 
                           
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(20),
                           boxShadow: [ 
                             BoxShadow( 
                               color: Color(0xF479CBDA),
