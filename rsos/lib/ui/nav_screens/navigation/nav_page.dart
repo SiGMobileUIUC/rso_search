@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rsos/ui/nav_screens/feed/feed.dart';
 import 'package:rsos/ui/nav_screens/home/home.dart';
-import 'package:rsos/ui/nav_screens/navigation/nav_bar.dart';
 import 'package:rsos/ui/nav_screens/profile/profile.dart';
 import 'package:rsos/ui/nav_screens/settings/settings.dart';
+import 'package:rsos/ui/nav_screens/navigation/nav_bar.dart';
+import 'package:rsos/ui/nav_screens/navigation/nav_bar_controller.dart';
+
 
 class NavigationPage extends StatefulWidget {
   const NavigationPage({super.key});
@@ -14,35 +17,31 @@ class NavigationPage extends StatefulWidget {
 
 class _NavigationPageState extends State<NavigationPage> {
 
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  final NavBarController navBarController = Get.put(NavBarController());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          SafeArea(
-            child: IndexedStack(
-              index: _selectedIndex,
-              children: const [
-                FeedPage(),
-                HomePage(title: "Home Page"),
-                ProfilePage(),
-                SettingsPage(),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            SafeArea(
+              child: Obx(() => IndexedStack(
+                index: navBarController.navIndex.value,
+                children: const [
+                  FeedPage(),
+                  HomePage(title: "Home Page"),
+                  ProfilePage(),
+                  SettingsPage(),
+                ],
+              )),
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+          ],
+        ),
+        bottomNavigationBar: Obx(() => CustomBottomNavigationBar(
+          currentIndex: navBarController.navIndex.value,
+          onTap: navBarController.changeNavPage,
+        )),
       ),
     );
   }
