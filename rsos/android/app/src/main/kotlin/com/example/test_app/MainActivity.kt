@@ -1,4 +1,4 @@
-package com.example.rsos
+package com.example.test_app
 
 import io.flutter.embedding.android.FlutterActivity
 
