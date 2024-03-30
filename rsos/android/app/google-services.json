@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "232600442251",
+    "project_id": "rso-search",
+    "storage_bucket": "rso-search.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232600442251:android:902154a1817821dc724b8e",
+        "android_client_info": {
+          "package_name": "io.sigmobile.rsos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJp1XmKG7DbAbVh44VvyF_WtOHpwkpmBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
