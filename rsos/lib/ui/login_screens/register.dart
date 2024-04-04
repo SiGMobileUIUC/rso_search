@@ -1,15 +1,7 @@
 import 'package:flutter/material.dart';
-import 'register.dart';
-
-void main() => runApp( 
-  MaterialApp( 
-    debugShowCheckedModeBanner: false,
-    home: loginpage(),
-  )
-);
-
-class loginpage extends StatelessWidget {
-  const loginpage({super.key});
+import 'login.dart';
+class registerpage extends StatelessWidget {
+  const registerpage({super.key});
   @override 
   Widget build(BuildContext context) { 
     return Scaffold( 
@@ -26,7 +18,7 @@ class loginpage extends StatelessWidget {
               child: Column( 
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget> [ 
-                  Text("Login", style: TextStyle(color: Colors.white, fontSize: 40)),
+                  Text("Register", style: TextStyle(color: Colors.white, fontSize: 40)),
                   SizedBox(height: 100,)
 
                 ]
@@ -89,7 +81,6 @@ class loginpage extends StatelessWidget {
                               )
                             ),
                             
-                            
                           ]
                           
                         ),
@@ -100,11 +91,11 @@ class loginpage extends StatelessWidget {
                         onTap: () {
                           Navigator.push( 
                             context, 
-                            MaterialPageRoute(builder: (context) => registerpage()),
+                            MaterialPageRoute(builder: (context) => loginpage()),
                             );
                         },
                         child: Center( 
-                          child: Text("Click here to register", style: TextStyle(color: Colors.grey, fontSize: 12), ),
+                          child: Text("Already Registered? Login now", style: TextStyle(color: Colors.grey, fontSize: 12), ),
                         )
                       ),
                       SizedBox(height: 30,),
@@ -120,7 +111,7 @@ class loginpage extends StatelessWidget {
                               ),
                               
                               child: Center( 
-                                child: Text("Login", style: TextStyle(color: Colors.white, fontSize: 16), ),
+                                child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 16), ),
                               )
                             )
                       )
