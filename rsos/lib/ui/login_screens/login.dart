@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'register.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+
+  LoginPage({super.key});
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  void signUserIn() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword( 
+      email: emailController.text,
+      password: passwordController.text,
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +71,10 @@ class LoginPage extends StatelessWidget {
                                   border: Border(
                                       bottom:
                                           BorderSide(color: Colors.blueGrey))),
-                              child: const TextField(
-                                decoration: InputDecoration(
-                                  hintText: "  Email or Phone number",
+                              child: TextField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
+                                  hintText: "  Email",
                                   hintStyle: TextStyle(
                                       color: Colors.grey, height: 2.0),
                                   border: InputBorder.none,
@@ -75,8 +86,9 @@ class LoginPage extends StatelessWidget {
                               decoration: const BoxDecoration(
                                   //border: Border(bottom: BorderSide(color: Colors.blueGrey))
                                   ),
-                              child: const TextField(
-                                decoration: InputDecoration(
+                              child: TextField(
+                                controller: passwordController,
+                                decoration: const InputDecoration(
                                   hintText: "  Password",
                                   hintStyle:
                                       TextStyle(color: Colors.grey, height: 2),
@@ -95,7 +107,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const RegisterPage()),
+                                builder: (context) => RegisterPage()),
                           );
                         },
                         child: const Center(
@@ -109,9 +121,9 @@ class LoginPage extends StatelessWidget {
                         height: 30,
                       ),
                       GestureDetector(
-                        //onTap: (
-
-                        //),
+                        onTap: () {
+                          signUserIn();
+                        },
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(

@@ -1,8 +1,31 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:rsos/ui/nav_screens/home/home.dart';
+import 'package:rsos/ui/nav_screens/profile/profile.dart';
 import 'login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+   RegisterPage({super.key});
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  void registeruser() async{
+    try {
+  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: emailController.text,
+    password: passwordController.text,
+  );
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
+  }
+} catch (e) {
+  print(e);
+}
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,9 +86,10 @@ class RegisterPage extends StatelessWidget {
                                   border: Border(
                                       bottom:
                                           BorderSide(color: Colors.blueGrey))),
-                              child: const TextField(
-                                decoration: InputDecoration(
-                                  hintText: "  Email or Phone number",
+                              child: TextField(
+                                controller: emailController,
+                                decoration: const InputDecoration(
+                                  hintText: "  Email",
                                   hintStyle: TextStyle(
                                       color: Colors.grey, height: 2.0),
                                   border: InputBorder.none,
@@ -77,8 +101,9 @@ class RegisterPage extends StatelessWidget {
                               decoration: const BoxDecoration(
                                   //border: Border(bottom: BorderSide(color: Colors.blueGrey))
                                   ),
-                              child: const TextField(
-                                decoration: InputDecoration(
+                              child: TextField(
+                                controller: passwordController,
+                                decoration: const InputDecoration(
                                   hintText: "  Password",
                                   hintStyle:
                                       TextStyle(color: Colors.grey, height: 2),
@@ -97,7 +122,7 @@ class RegisterPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LoginPage()),
+                                builder: (context) =>  LoginPage()),
                           );
                         },
                         child: const Center(
@@ -111,6 +136,14 @@ class RegisterPage extends StatelessWidget {
                         height: 30,
                       ),
                       GestureDetector(
+                        onTap: () {
+                          registeruser();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePage()),
+                          );
+                        },
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
