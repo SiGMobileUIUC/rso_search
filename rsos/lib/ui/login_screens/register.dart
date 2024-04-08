@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'register.dart';
+import 'login.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,21 +20,23 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("Login",
+                  Text("Register",
                       style: TextStyle(color: Colors.white, fontSize: 40)),
                   SizedBox(
                     height: 100,
-                  )
+                  ),
                 ],
               ),
             ),
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(60),
-                        topRight: Radius.circular(60))),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(60),
+                    topRight: Radius.circular(60),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
@@ -95,12 +97,12 @@ class LoginPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const RegisterPage()),
+                                builder: (context) => const LoginPage()),
                           );
                         },
                         child: const Center(
                           child: Text(
-                            "Click here to register",
+                            "Already Registered? Login now",
                             style: TextStyle(color: Colors.grey, fontSize: 12),
                           ),
                         ),
@@ -109,9 +111,6 @@ class LoginPage extends StatelessWidget {
                         height: 30,
                       ),
                       GestureDetector(
-                        //onTap: (
-
-                        //),
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
@@ -120,7 +119,7 @@ class LoginPage extends StatelessWidget {
                           ),
                           child: const Center(
                             child: Text(
-                              "Login",
+                              "Register",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 16),
                             ),
