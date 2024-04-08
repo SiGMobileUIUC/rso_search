@@ -1,51 +1,19 @@
+import 'dart:async'; // Import for StreamController
 import 'package:flutter/material.dart';
-import 'package:rsos/components/custom_search_delegate.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Search Example'),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(context: context, delegate: CustomSearchDelegate());
-              },
-            )
-          ],
-        ),
-        body: ListView(
-          children: <Widget>[
-            ListTile(title: Text('Item 1')),
-            ListTile(title: Text('Item 2')),
-            ListTile(title: Text('Item 3')),
-            // Add more items here
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class CustomSearchDelegate extends SearchDelegate<String> {
   final List<String> items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
+    'Apple',
+    'Banana',
+    'Orange',
+    'Pineapple',
     // Add more items here
   ];
 
   final List<String> recentItems = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
+    'Apple',
+    'Banana',
+    'Orange',
   ];
 
   @override
@@ -65,14 +33,16 @@ class CustomSearchDelegate extends SearchDelegate<String> {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, null);
+        close(context, "null");
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    final filteredItems = items.where((item) => item.toLowerCase().contains(query.toLowerCase())).toList();
+    final filteredItems = items
+        .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     return ListView.builder(
       itemCount: filteredItems.length,
       itemBuilder: (context, index) {
@@ -88,17 +58,32 @@ class CustomSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final StreamController<List<String>> suggestionStream = StreamController<List<String>>(); // Defining StreamController
     final suggestionList = query.isEmpty
         ? recentItems // Display recent items when query is empty
-        : items.where((item) => item.toLowerCase().contains(query.toLowerCase())).toList();
-    return ListView.builder(
-      itemCount: suggestionList.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(suggestionList[index]),
-          onTap: () {
-            query = suggestionList[index];
-            showResults(context);
+        : items
+            .where((item) =>
+                item.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+    suggestionStream.add(suggestionList);
+
+    return StreamBuilder<List<String>>(
+      stream: suggestionStream.stream,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return CircularProgressIndicator();
+        }
+        final suggestions = snapshot.data!;
+        return ListView.builder(
+          itemCount: suggestions.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(suggestions[index]),
+              onTap: () {
+                query = suggestions[index];
+                showResults(context);
+              },
+            );
           },
         );
       },
