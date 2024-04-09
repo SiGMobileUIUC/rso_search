@@ -32,6 +32,7 @@ class _NavigationPageState extends State<NavigationPage> {
                   FeedPage(),
                   HomePage(title: "Home Page"),
                   AuthPage(),
+                  ProfilePage(),
                   SettingsPage(),
                 ],
               )),

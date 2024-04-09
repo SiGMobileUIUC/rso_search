@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:rsos/ui/nav_screens/home/home.dart';
 import 'package:rsos/ui/nav_screens/profile/profile.dart';
 import 'login.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -26,6 +27,11 @@ class RegisterPage extends StatelessWidget {
   print(e);
 }
   }
+
+
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,10 +92,14 @@ class RegisterPage extends StatelessWidget {
                                   border: Border(
                                       bottom:
                                           BorderSide(color: Colors.blueGrey))),
+
                               child: TextField(
                                 controller: emailController,
                                 decoration: const InputDecoration(
                                   hintText: "  Email",
+                              child: const TextField(
+                                decoration: InputDecoration(
+                                  hintText: "  Email or Phone number",
                                   hintStyle: TextStyle(
                                       color: Colors.grey, height: 2.0),
                                   border: InputBorder.none,
@@ -104,6 +114,9 @@ class RegisterPage extends StatelessWidget {
                               child: TextField(
                                 controller: passwordController,
                                 decoration: const InputDecoration(
+
+                              child: const TextField(
+                                decoration: InputDecoration(
                                   hintText: "  Password",
                                   hintStyle:
                                       TextStyle(color: Colors.grey, height: 2),
@@ -123,6 +136,8 @@ class RegisterPage extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>  LoginPage()),
+
+                                builder: (context) => const LoginPage()),
                           );
                         },
                         child: const Center(
@@ -144,6 +159,7 @@ class RegisterPage extends StatelessWidget {
                                 builder: (context) => ProfilePage()),
                           );
                         },
+
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(
