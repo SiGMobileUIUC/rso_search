@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rsos/ui/login_screens/auth.dart';
 import 'package:rsos/ui/nav_screens/feed/feed.dart';
 import 'package:rsos/ui/nav_screens/home/home.dart';
 import 'package:rsos/ui/nav_screens/profile/profile.dart';
@@ -30,6 +31,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 children: const [
                   FeedPage(),
                   HomePage(title: "Home Page"),
+                  AuthPage(),
                   ProfilePage(),
                   SettingsPage(),
                 ],
