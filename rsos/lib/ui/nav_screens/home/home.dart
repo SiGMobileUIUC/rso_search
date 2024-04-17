@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rsos/components/search_filter';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -39,10 +40,15 @@ class _MyHomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+          child: const Icon(Icons.search),
+          onPressed: () async {
+            await showSearch(
+                context: context, delegate: CustomSearchDelegate());
+          }
+          // onPressed: _incrementCounter,
+          // tooltip: 'Increment',
+          // child: const Icon(Icons.add),
+          ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
