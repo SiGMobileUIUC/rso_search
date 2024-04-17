@@ -19,7 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text("Profile Page"),
         actions: [ 
-          IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))
+          IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
         ],
       ),
     );
