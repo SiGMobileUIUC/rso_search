@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rsos/components/search_filter';
+import 'package:rsos/components/search_filter.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
