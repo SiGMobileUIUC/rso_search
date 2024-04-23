@@ -31,7 +31,7 @@ class _NavigationPageState extends State<NavigationPage> {
                 children: const [
                   FeedPage(),
                   HomePage(title: "Home Page"),
-                  AuthPage(),
+                  // AuthPage(),
                   ProfilePage(),
                   SettingsPage(),
                 ],
