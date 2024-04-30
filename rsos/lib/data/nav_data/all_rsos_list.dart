@@ -1,3 +1,4 @@
+// ignore: non_constant_identifier_names
 List<String> ALL_RSOS = [
   "4 Paws for Ability at the University of Illinois at Urbana-Champaign",
   "4-H House Cooperative Sorority",
