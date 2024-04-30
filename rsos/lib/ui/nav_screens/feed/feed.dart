@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 
@@ -30,12 +31,12 @@ class _FeedPageState extends State<FeedPage> {
         body: CustomScrollView(
           slivers: [
             SliverPadding(
-              padding: const EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
+                      padding: const EdgeInsets.only(bottom: 10.0),
                       child: RSOCard(rsoTitle: rsoNames[index][0], rsoMission: rsoNames[index][1],),
                     );
                   },
@@ -57,105 +58,72 @@ class RSOCard extends StatelessWidget {
   final String rsoTitle;
   final String rsoMission;
 
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () { Get.to(() => RSOPage(title: rsoTitle, mission: rsoMission,)); },
       child: Container(
-        height: 140.0,
-        width: 0.0,
+        height: MediaQuery.of(context).size.height * 0.215,
+        // width: 0.0,
+        padding: const EdgeInsets.all(10.0),
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
-          // color: Colors.orange,
           border: Border.all(color: Colors.orange, width: 2.5),
           borderRadius: BorderRadius.circular(5.0),
         ),
-        child: Stack(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Positioned(
-              left: 15.0,
-              top: 20.0,
-              child: Container(
-                height: 100.0,
-                width: 100.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/uiuclogo.png"),
-                    fit: BoxFit.cover,
-                  ),
+            
+            Container(
+              height: MediaQuery.of(context).size.height * 0.13,
+              width: MediaQuery.of(context).size.width * 0.275,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5.0),
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/uiuclogo.png"),
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
-            Positioned(
-              left: 125.0,
-              top: 20.0,
-              child: SizedBox(
-                height: 120.0,
-                width: 230.0,
-                child: Text(
-                  rsoTitle,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+            
+            Column(
+              children: [
+                Container(
+                  padding: const EdgeInsetsDirectional.only(top: 18.0),
+                  height: MediaQuery.of(context).size.height * 0.095,
+                  width: MediaQuery.of(context).size.width * 0.55,
+                  child: Text(
+                    rsoTitle,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Positioned(
-              left: 125.0,
-              bottom: 20.0,
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.green,
-                    ),
-                    child: const Row(
-                      children: [
-                        Text(
-                          "Open",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Icon(
-                          Icons.done,
-                          color: Colors.white,
-                        ),
-                      ],
+                const SizedBox(height: 2.5,),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.02,
+                    width: MediaQuery.of(context).size.width * 0.55,
+                    child: const Text(
+                      "Membership Closed", style: TextStyle(color: Colors.red, fontSize: 12.5, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(
-                    width: 5.0,
+                ),
+                const SizedBox(height: 2.0),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    fixedSize: Size(MediaQuery.of(context).size.width * 0.55, MediaQuery.of(context).size.height * 0.03),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    )
                   ),
-                  Container(
-                    padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      color: Colors.red,
-                    ),
-                    child: const Row(
-                      children: [
-                        Text(
-                          "Not Registered",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                  onPressed: () {}, 
+                  child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 15.0),),
+                ),
+              ],
             ),
           ],
         ),
@@ -186,34 +154,23 @@ class RSOPage extends StatelessWidget {
               icon: Icon(Icons.arrow_back_ios),
               onPressed: () { Get.back(); },
             ),
+            title: Text(title),
+            centerTitle: true,
           ),
           body: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 80.0,
-                      width: 80.0,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: const DecorationImage(
-                          image: AssetImage("assets/images/uiuclogo.png"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                child: Container(
+                  height: 80.0,
+                  width: 80.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/uiuclogo.png"),
+                      fit: BoxFit.cover,
                     ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Container(
-                      width: 250.0,  
-                      height: 80.0,
-                      child: Text(title),
-                    ),
-                  ],
+                  ),
                 ),
               ),
               const TabBar(
@@ -231,20 +188,66 @@ class RSOPage extends StatelessWidget {
                   child: TabBarView(
                     children: [
                       SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("General"),
-                            Divider(),
-                            Text("Group Type: ${title}"),
-                            Text("Mission"),
-                            Divider(),
-                            Text(mission),
-                            Text("Contact Info"),
-                            Divider(),
-                            Text("Officers"),
-                            Divider(),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.info, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
+                                  Text("General", style: TextStyle(fontSize: 25.0),)
+                                ],
+                              ),
+                              
+                              Divider(
+                                height: 15.0,
+                              ),
+                              Text("Group Type: ${title}"),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.language, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
+                                  Text("Mission", style: TextStyle(fontSize: 25.0),),
+                                ],
+                              ),
+                              Divider(
+                                height: 15.0,
+                              ),
+                              Text(mission),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.mail, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
+                                  Text("Contact", style: TextStyle(fontSize: 25.0),),
+                                ],
+                              ),
+                              Divider(
+                                height: 15.0,
+                              ),
+                              Text("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.group, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
+                                  Text("Officers", style: TextStyle(fontSize: 25.0),),
+                                ],
+                              ),
+                              Divider(
+                                height: 15.0,
+                              ),
+                              Text("Officers Info"),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Text("Home/Announcements"),
