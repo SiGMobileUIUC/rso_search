@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 
 class FeedPage extends StatefulWidget {
   const FeedPage({super.key});
-
 
   @override
   State<FeedPage> createState() => _FeedPageState();
@@ -14,11 +13,19 @@ class FeedPage extends StatefulWidget {
 
 class _FeedPageState extends State<FeedPage> {
 
-  final List<List<String>> rsoNames = [ 
-      ["Association of Computing Machinery", "acm mission" ],
-      ["(eye)Teach", "(eye)Teach mission" ],
-      ["ACHA Men's Division II Hockey Club at the University of Illinois Urbana-Champaign", "mission for this rso with a super long name"] 
+  // Input List 
+
+  final List<String> rsoNames = [ 
+      "Association of Computing Machinery",
+      "(eye)Teach",
+      "ACHA Men's Division II Hockey Club at the University of Illinois Urbana-Champaign"
     ];
+
+  // final List<List<String>> rsoNames = [ 
+  //     ["Association of Computing Machinery", "acm mission"],
+  //     ["(eye)Teach", "(eye)Teach mission" ],
+  //     ["ACHA Men's Division II Hockey Club at the University of Illinois Urbana-Champaign", "mission for this rso with a super long name"] 
+  //   ];
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +44,7 @@ class _FeedPageState extends State<FeedPage> {
                   (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
-                      child: RSOCard(rsoTitle: rsoNames[index][0], rsoMission: rsoNames[index][1],),
+                      child: RSOCard(rsoTitle: rsoNames[index]),
                     );
                   },
                   childCount: rsoNames.length,
@@ -52,16 +59,21 @@ class _FeedPageState extends State<FeedPage> {
 }
 
 
+/* 
+Widget for the RSO info cards or blocks displayed via SliverList 
+onTap (outside of register button) direct user to the RSO's own page
+*/
+
 class RSOCard extends StatelessWidget {
-  const RSOCard({super.key, required this.rsoTitle, required this.rsoMission});
+  const RSOCard({super.key, required this.rsoTitle});
 
   final String rsoTitle;
-  final String rsoMission;
+  // final String rsoMission;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () { Get.to(() => RSOPage(title: rsoTitle, mission: rsoMission,)); },
+      onTap: () { Get.to(() => RSOPage(title: rsoTitle)); },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.215,
         // width: 0.0,
@@ -75,6 +87,8 @@ class RSOCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             
+            // UIUC/RSO Image
+
             Container(
               height: MediaQuery.of(context).size.height * 0.13,
               width: MediaQuery.of(context).size.width * 0.275,
@@ -87,6 +101,8 @@ class RSOCard extends StatelessWidget {
               ),
             ),
             
+            // RSO Name, Membership, and Register Button
+
             Column(
               children: [
                 Container(
@@ -121,10 +137,11 @@ class RSOCard extends StatelessWidget {
                     )
                   ),
                   onPressed: () {}, 
-                  child: Text("Register", style: TextStyle(color: Colors.white, fontSize: 15.0),),
+                  child: const Text("Register", style: TextStyle(color: Colors.white, fontSize: 15.0),),
                 ),
               ],
             ),
+
           ],
         ),
       ),
@@ -132,15 +149,15 @@ class RSOCard extends StatelessWidget {
   }
 }
 
+// Widget for the individual pages for RSOs
+
 class RSOPage extends StatelessWidget {
   const RSOPage({
     super.key,
     required this.title,
-    required this.mission,
   });
 
   final String title;
-  final String mission;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +168,7 @@ class RSOPage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios),
               onPressed: () { Get.back(); },
             ),
             title: Text(title),
@@ -173,6 +190,9 @@ class RSOPage extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // Initialize Tab Bar
+
               const TabBar(
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelColor: Colors.blue,
@@ -183,7 +203,10 @@ class RSOPage extends StatelessWidget {
                     Text("Events", style: TextStyle(fontSize: 25.0),),
                   ],
                 ),
-                Container(
+
+                // Tab Page Display
+
+                SizedBox(
                   height: 500.0,
                   child: TabBarView(
                     children: [
@@ -193,65 +216,65 @@ class RSOPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(Icons.info, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
                                   Text("General", style: TextStyle(fontSize: 25.0),)
                                 ],
                               ),
                               
-                              Divider(
+                              const Divider(
                                 height: 15.0,
                               ),
-                              Text("Group Type: ${title}"),
-                              SizedBox(
+                              Text("$title Group Type + Other General Info"),
+                              const SizedBox(
                                 height: 20.0,
                               ),
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(Icons.language, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
                                   Text("Mission", style: TextStyle(fontSize: 25.0),),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 15.0,
                               ),
-                              Text(mission),
-                              SizedBox(
+                              Text("$title Mission"),
+                              const SizedBox(
                                 height: 20.0,
                               ),
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(Icons.mail, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
                                   Text("Contact", style: TextStyle(fontSize: 25.0),),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 15.0,
                               ),
-                              Text("YOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOYOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"),
-                              SizedBox(
+                              Text("$title Contact Info"),
+                              const SizedBox(
                                 height: 20.0,
                               ),
-                              Row(
+                              const Row(
                                 children: [
                                   Icon(Icons.group, fill: 0.0, weight: 400.0, opticalSize:24, grade: 0, size: 30.0,),
                                   Text("Officers", style: TextStyle(fontSize: 25.0),),
                                 ],
                               ),
-                              Divider(
+                              const Divider(
                                 height: 15.0,
                               ),
-                              Text("Officers Info"),
-                              SizedBox(
+                              Text("$title Officers Info"),
+                              const SizedBox(
                                 height: 20.0,
                               ),
                             ],
                           ),
                         ),
                       ),
-                      Text("Home/Announcements"),
-                      Text("Events"),
+                      const Text("Home/Announcements"),
+                      const Text("Events"),
                     ],
                   ),
                 ),
